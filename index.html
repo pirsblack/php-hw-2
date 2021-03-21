@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FORM</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/vquop66sritnvhf68tmmttal665zwmowhbzqktd836w8mnop/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+            selector: '#mytextarea',
+                content_css: 'writer'
+        });
+     </script>
+</head>
+<body>
+<div class="container is-max-desktop mt-6">
+    <div class="box is-radiusless">
+        <div class="notification is-danger">
+            <button class="delete"></button>
+            Я уже заполнил форму чтобы <b>Вам</b> было быстрее проверить её работоспособность. Но картинку нужно загрузить свою =)
+        </div>
+        <form action="/form.php" method="POST" enctype="multipart/form-data">
+            <div class="field">
+                <label class="label">Url:</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input is-primary is-radiusless" type="text" value="solusone.info" readonly name="url">
+                    <span class="icon is-left">
+                                <i class="fas fa-link"></i>
+                            </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Title:</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input is-primary is-radiusless" type="text" value="What is Lorem Ipsum?" readonly name="title">
+                    <span class="icon is-left">
+                            <i class="fab fa-adversal"></i>
+                        </span>
+                </div>
+            </div>
+            <div id="file-js-example" class="file has-name is-success">
+                <label class="file-label">
+                    <input class="file-input" type="file" name="resume">
+                    <span class="file-cta is-radiusless">
+                        <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label">
+                            Choose a file…
+                        </span>
+                    </span>
+                    <span class="file-name">
+                                No file uploaded
+                    </span>
+                </label>
+                <span class="tag is-danger is-medium mx-3 my-1">Рекомендуемый размер картинки: 960x480px</span>
+            </div>
+            <div class="field mt-4">
+                <div id="textarea-loading" class="control">
+                  <textarea class="is-primary" id="mytextarea" readonly name="article">
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                  </textarea>
+                </div>
+            </div>
+            <div class="field has-addons">
+                <p class="control">
+                    <button class="button is-success is-radiusless " onclick="loading(this)" type="submit" name="button">
+                            <span class="icon is-small">
+                              <i class="fas fa-check"></i>
+                          </span>
+                        <span>Submit</span>
+                    </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!--<textarea id="mytextarea">Hello, World!</textarea>-->
+<!-- In JavaScript code, the upload input file requires it to get the name of the selected file. -->
+<script>
+    const fileInput = document.querySelector('#file-js-example input[type=file]');
+    fileInput.onchange = () => {
+        if (fileInput.files.length > 0) {
+            const fileName = document.querySelector('#file-js-example .file-name');
+            fileName.textContent = fileInput.files[0].name;
+        }
+    }
+</script>
+<!-- END -->
+<!-- Adding is-loading to a button. -->
+<script>
+    function loading(el) {
+        el.classList.add('is-loading');
+    }
+</script>
+<!-- END -->
+<!-- Adding is-loading to hover over textarea when cursor elsewhere is-loading doesn't work. -->
+<script>
+    $('#textarea-loading').hover(function (){
+        $('#textarea-loading').addClass('is-loading');
+    }, function () {
+        $('#textarea-loading').removeClass('is-loading');
+    });
+</script>
+<!-- END -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+            const $notification = $delete.parentNode;
+
+            $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+            });
+        });
+    });
+</script>
+</body>
+</html>
